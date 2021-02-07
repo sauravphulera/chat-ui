@@ -1,0 +1,8 @@
+{
+    "/api/*": {
+        "target": "https://c6.avaamo.com/web_channel/channel/0bb27887-9589-45b2-bdf2-c6f5ad41eb%20e5",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    }
+}

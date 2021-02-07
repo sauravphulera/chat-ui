@@ -1,20 +1,100 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="container">
+  <div class="bottom-right">
+    <div class="chat-container animate" [ngStyle]="isChatOpened ? {'height': '700px', 'width': '450px' }: {'height': '0', 'width': '0'}">
+      <div class="chat-header">
+        <div style="margin-left:12px; color:white">Avaamo UI Assignment(Don't touch)</div>
+      </div>
+
+      <!-- chat section -->
+      <div class="chat-main" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+        <div *ngFor="let msg of messages">
+        <!-- left message -->
+        <div *ngIf="msg?.user === 'bot'">
+
+          <!-- text -->
+          <div class="message left-msg" style="margin: 5px 0 5px 0;" *ngIf="msg?.contentType == 'text'">
+            <div class="chat-image" style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg);"></div>
+            <div class="chat-bubble">
+              <!-- <div class="chat-info">Saurav</div> -->
+              <div class="chat-text">{{msg?.content?.text}}</div>
+            </div>
+          </div>
+           <!-- carousel -->
+           <div *ngIf="msg?.contentType == 'carousel'" style="margin: 10px 10px 10px 10px;">
+            <div class="carousel-background">
+              <div class="chat-image" style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg);margin-bottom: 4px;"></div>
+            <mat-card class="carousel-card">
+              <mat-card-header>
+                  <mat-card-title>Shiba Inu</mat-card-title>
+                </mat-card-header>
+                <img style="height: 300px;" mat-card-image [src]="msg?.content?.url" alt="Photo of a Shiba Inu">
+                <mat-card-content>
+                  <p>
+                    {{msg?.content?.text}}
+                  </p>
+                </mat-card-content>
+                <mat-card-actions>
+                  <button mat-button style="color: blue;">Call</button>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+           </div>
+
+           <!-- audio -->
+           <div *ngIf="msg?.contentType == 'audio'" style="margin-bottom: 10px;">
+            <div class="message">
+              <div class="chat-image" style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg);margin-bottom: 4px;"></div>
+              <audio controls>
+                <source [src]="msg?.content?.url" type="audio/mpeg">
+                 Your browser does not support the audio element.
+              </audio>
+            </div>
+           </div>
+        </div>
+
+        <!-- video  -->
+        <div *ngIf="msg?.contentType == 'video'" style="margin-bottom: 10px;">
+          <div class="message flex_start">
+            <div class="chat-image" style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg);margin-bottom: 4px;"></div>
+            <video width="330" controls>
+              <source [src]="msg?.content?.url" type="video/mp4">
+              Your browser does not support HTML video.
+            </video>
+          </div>
+        </div>
+
+        <!-- right message -->
+        <div class="message right-msg" style="margin: 5px 0 5px 0;" *ngIf="msg?.user === 'user'">
+          <div class="chat-image" style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg);"></div>
+          <div class="chat-bubble">
+            <!-- <div class="chat-info">Saurav</div> -->
+            <div class="chat-text">{{msg?.content?.text}}</div>
+          </div>
+        </div>
+       </div>
+      </div>
+      <div class="chat-footer">
+        <div style="flex-basis: 70%;">
+        <input type="text" [(ngModel)]="chatText" placeholder="Type a message..." (keydown.enter)="sendChatMsg()">
+        </div>
+        <div style="flex-basis: 30%;display: flex;">
+            <button mat-icon-button style="height: 100%;">
+              <span class="material-icons">
+                keyboard_voice
+                </span>
+            </button>
+            <button mat-button style="color: blue;" (click)="sendChatMsg()">Send</button>
+        </div>
+      </div>
+    </div>
+    <button mat-icon-button class="chat-button animate" [ngClass]="isChatOpened ? 'chat-button-rotate' : ''" (click)="openChatBox()">
+      <span class="material-icons" *ngIf="!isChatOpened" style="color: white;">
+        chat
+        </span>
+        <span class="material-icons" *ngIf="isChatOpened" style="color: white;">
+          close
+          </span>
+    </button>
+  </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 

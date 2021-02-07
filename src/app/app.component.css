@@ -1,0 +1,137 @@
+.bottom-right {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 700px;
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+.chat-button {
+    border-radius: 50%;
+    background: cornflowerblue;
+    margin: 4px 16px 16px 16px;
+}
+.chat-button-rotate {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+} 
+  .animate {
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+  }
+
+  .chat-container {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    margin-right: 16px;
+    box-shadow: 16 16 16 16px;
+    box-shadow: 0px 0px 6px #B2B2B2;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chat-header {
+    flex-basis: 12%;
+    background: cornflowerblue;
+    display: flex;
+    align-items: center;
+  }
+  .chat-main {
+    flex-basis: 78%;
+    overflow-y: auto;
+  }
+  .chat-footer {
+    flex-basis: 10%;
+    box-shadow: 0px 0px 6px #B2B2B2;
+    display: flex;
+  }
+  input {
+    width: 100%;
+    height: 95%;
+    border: 0 !important;
+    caret-color: blue;
+    padding-left: 6px;
+  }
+  input:focus {
+      border:0 !important;
+      outline: none;
+  }
+  .message {
+    display: flex;
+    align-items: flex-end;
+  }
+  .right-msg {
+    flex-direction: row-reverse;
+  }
+  .chat-image {
+    /* background-image: url('https://image.flaticon.com/icons/svg/145/145867.svg'); */
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    background: #ddd;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+    margin: 0 5px 0 5px;
+  }
+.right-msg .chat-bubble {
+  background: #579ffb;
+  color: #fff;
+  border-bottom-right-radius: 0;
+}
+.left-msg .chat-bubble {
+  border-top-left-radius: 0;
+  background: #ececec;
+  /* color: #fff; */
+}
+.chat-bubble {
+  max-width: 300px;
+  padding: 15px;
+  border-radius: 15px;
+  overflow-wrap: break-word;
+}
+.chat-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.carousel-card {
+  max-width: 300px;
+  border-top-left-radius: 6%;
+  border-bottom-left-radius: 6%;
+}
+
+.carousel-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.carousel-background {
+  /* background-color: rgba(100,149,237,0.3); */
+  border-radius: 6%;
+  border-top-left-radius: 0;
+}
+
+audio:focus {
+  outline: none;
+}
+
+video:focus {
+  outline: none;
+}
+
+.flex_start {
+  display: flex;
+  display: -webkit-flex;
+  align-items: flex-start;
+}
