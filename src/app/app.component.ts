@@ -5,10 +5,11 @@ import {BotService} from '../services/bot.service';
 type msgModel = Array<{
   user: string,
   contentType: string,
-  content: {
+  content?: {
     text?: string,
     url?: string,
   }
+  carousel?:Array<any>,
 }>;
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ type msgModel = Array<{
 })
 export class AppComponent {
   botMsg = new Observable<any>();
+  carouselIndex = 0;
 
   messages:msgModel = [
     {
@@ -68,6 +70,7 @@ export class AppComponent {
   /**send chat text to server */
   sendChatMsg() {
     console.log(this.chatText);
+    if(this.chatText == '') return;
     const data = { 
       "message": { 
       "content": this.chatText 
@@ -89,34 +92,60 @@ export class AppComponent {
         console.log(data);
       })
     if(this.chatText == 'carousel') {
-      this.messages.push({
-        user: 'bot',
-        contentType: 'carousel',
-        content: {
-          text: 'This is a dog',
-          url: 'https://material.angular.io/assets/img/examples/shiba1.jpg'
-        }
-       })
+      this.setCArouselData();
     } else
     if(this.chatText == 'audio') {
-      this.messages.push({
-        user: 'bot',
-        contentType: 'audio',
-        content: {
-          url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
-        }
-       })
+      this.setAudioData();
     }
     if(this.chatText == 'video') {
-      this.messages.push({
-        user: 'bot',
-        contentType: 'video',
-        content: {
-          url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
-        }
-       })
+      this.setVideoData();
     }
     this.chatText = '';
+    this.ref.detectChanges();
+  }
+
+  private setVideoData() {
+    this.messages.push({
+      user: 'bot',
+      contentType: 'video',
+      content: {
+        url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+      }
+    });
+  }
+
+  private setAudioData() {
+    this.messages.push({
+      user: 'bot',
+      contentType: 'audio',
+      content: {
+        url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
+      }
+    });
+  }
+
+  private setCArouselData() {
+    this.messages.push({
+      user: 'bot',
+      contentType: 'carousel',
+      carousel: [{
+        text: 'This is a dog',
+        url: 'https://material.angular.io/assets/img/examples/shiba1.jpg'
+      },
+      {
+        text: 'This is scond',
+        url: 'https://picsum.photos/seed/picsum/200/300'
+      },
+      {
+        text: 'This is only text This is only text This is only text This is only text This is only text This is only text This is only text This is only text This is only text This is only text This is only text',
+        url: false
+      }
+      ]
+    });
+  }
+
+  plusSlides(counter) {
+    this.carouselIndex += counter;
     this.ref.detectChanges();
   }
 }

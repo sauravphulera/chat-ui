@@ -24,13 +24,15 @@
             <div class="carousel-background">
               <div class="chat-image" style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg);margin-bottom: 4px;"></div>
             <mat-card class="carousel-card">
+              <a class="prev" *ngIf="this.carouselIndex > 0" (click)="plusSlides(-1)">&#10094;</a>
+              <a class="next" *ngIf="this.carouselIndex < msg?.carousel.length - 1" (click)="plusSlides(1)">&#10095;</a>
               <mat-card-header>
                   <mat-card-title>Shiba Inu</mat-card-title>
                 </mat-card-header>
-                <img style="height: 300px;" mat-card-image [src]="msg?.content?.url" alt="Photo of a Shiba Inu">
+                <img style="height: 300px;" *ngIf="msg?.carousel[carouselIndex]?.url" mat-card-image [src]="msg?.carousel[carouselIndex]?.url" alt="Photo of a Shiba Inu">
                 <mat-card-content>
                   <p>
-                    {{msg?.content?.text}}
+                    {{msg?.carousel[carouselIndex]?.text}}
                   </p>
                 </mat-card-content>
                 <mat-card-actions>
