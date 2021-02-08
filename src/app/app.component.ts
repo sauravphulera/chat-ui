@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import {BotService} from '../services/bot.service';
 
 type msgModel = Array<{
@@ -16,6 +17,7 @@ type msgModel = Array<{
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
+  botMsg = new Observable<any>();
 
   messages:msgModel = [
     {
@@ -36,7 +38,16 @@ export class AppComponent {
 
   /**constructor */
   constructor(private botService: BotService,
-              private ref: ChangeDetectorRef) {}
+              private ref: ChangeDetectorRef) {
+                this.botMsg = this.botService.botMessage;
+              }
+
+  /**on load */
+  ngOnInit() {
+    this.botMsg.subscribe((data) => {
+      console.log(data);
+    })
+  }
   
   /**on content load */
   ngAfterViewInit() {
@@ -74,9 +85,9 @@ export class AppComponent {
           text: this.chatText
         }
     })
-      // this.botService.sendMsg(data).subscribe((data) => {
-      //   console.log(data);
-      // })
+      this.botService.sendMsg(data).subscribe((data) => {
+        console.log(data);
+      })
     if(this.chatText == 'carousel') {
       this.messages.push({
         user: 'bot',
